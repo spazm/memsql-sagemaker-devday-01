@@ -17,8 +17,10 @@ FIELDS TERMINATED BY ',' ENCLOSED BY '' ESCAPED BY '\\'
 LINES TERMINATED BY '\n' STARTING BY '';
 
 -- terminated by tab as the the polygons contain commas
+-- region config needed to match the s3 bucket region
 CREATE PIPELINE neighborhoods
 AS LOAD DATA S3 'memsql-datafeeds/nyc-taxi-data/'
+  CONFIG '{"region": "us-east-1"}'
 REPLACE
 INTO TABLE neighborhoods
 FIELDS TERMINATED BY '\t' ENCLOSED BY '' ESCAPED BY '\\'
